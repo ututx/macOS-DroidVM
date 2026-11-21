@@ -1,6 +1,6 @@
 {
  "name": "k27",
- "tag": "27.2",
+ "tag": "27.0.1",
  "ipsw": "configs/macos-27.2-26B8125.json",
  "inputs": {
   "ipsws": [
