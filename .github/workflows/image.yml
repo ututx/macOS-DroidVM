@@ -54,7 +54,7 @@ env:
   GH_TOKEN: ${{ github.token }}
   MACOS_CCACHE: /usr/bin/ccache
   CCACHE_MAXSIZE: 2G
-  TAG: '27.0.1'
+  TAG: '27.2'
 
 jobs:
   inputs:
@@ -410,4 +410,4 @@ jobs:
           release="image-$TAG-${{ github.run_number }}"
           gh release create "$release" --repo "$GITHUB_REPOSITORY" --prerelease --title "k27 $TAG image ${{ github.run_number }} (encrypted)" \
             --notes "boot.img and a new install (data-store.img), ARTIFACT_KEY encrypted: scripts/ci-blob.sh unpack DIR image.tar.zst.enc.[0-9][0-9][0-9]"
-          gh release upload "$release" --repo "$GITHUB_REPOSITORY" "$RUNNER_TEMP"/image/image.tar.zst.enc.[0-9][0-9][0-9] "$RUNNER_TEMP"/image/plain/*
+          gh release upload "$release" --repo "$GITHUB_REPOSITORY" "$RUNNER_TEMP"/image/image.tar.zst.enc.* "$RUNNER_TEMP"/image/plain/*
