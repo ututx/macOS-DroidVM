@@ -83,7 +83,7 @@
   "user": "droid:droid"
  },
  "env": {
-  "MACOS_TAG": "27.2",
+  "MACOS_TAG": "27.0.1",
   "MACOS_PCIE": "1",
   "MACOS_DATA_PCI": "1",
   "MACOS_NET_PCI": "1",
