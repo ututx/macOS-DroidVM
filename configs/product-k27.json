@@ -1,11 +1,11 @@
 {
  "name": "k27",
  "tag": "27.0.1",
- "ipsw": "configs/macos-27.2-26B8125.json",
+ "ipsw": "configs/macos-27.0.1-26B8125.json",
  "inputs": {
   "ipsws": [
    {
-    "profile": "configs/macos-27.2-26B8125.json",
+    "profile": "configs/macos-27.0.1-26B8125.json",
     "inventory": "inventory",
     "identity": "k114sap",
     "members": [
@@ -38,7 +38,7 @@
     ]
    },
    {
-    "profile": "configs/macos-27.2-26B123.json",
+    "profile": "configs/macos-27.0.1-26B123.json",
     "inventory": "inventory-26B123",
     "identity": "vma2macosap",
     "members": [
@@ -67,7 +67,7 @@
   "keep": "configs/kc-keep.txt"
  },
  "disk": {
-  "dir": "artifacts/27.2/disk",
+  "dir": "artifacts/27.0.1/disk",
   "comment": "a new install (product.py disk DIR, then stage DIR): the Data volume gets the plugin and apps, the user (MACOS_USER or --user over \"user\") and the \"stage\" settings",
   "stage": [
    "--setup-done",
@@ -131,8 +131,8 @@
   ]
  },
  "boot": {
-  "base_trustcache": "artifacts/27.2/boot/kernel.macho.trustcache",
-  "seed": "artifacts/27.2/disk/scratch-data.img",
+  "base_trustcache": "artifacts/27.0.1/boot/kernel.macho.trustcache",
+  "seed": "artifacts/27.0.1/disk/scratch-data.img",
   "output": "out/product/k27"
  }
 }
