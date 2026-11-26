@@ -101,8 +101,14 @@ staged.write_text(text.replace(start, publish + start).replace(old, '''  retain(
   thread_deallocate(thread);
   return true;
 '''))
+abi = ROOT / 'out/x12377/storage-abi/include'
+if not (abi / 'IOKit/storage/IOBlockStorageDevice.h').exists():
+    for cand in (ROOT / 'out/k27/xnu/iokit', ROOT / 'out/x12377/build/xnu/iokit', ROOT / 'out/x12377/xnu-m/iokit'):
+        if (cand / 'IOKit/storage/IOBlockStorageDevice.h').exists():
+            abi = cand
+            break
 subprocess.run(['python3', str(ROOT / 'scripts/build-native-kext.py'), 'NativeRamBlock', str(staged),
                 str(ROOT / 'overlay/kext/NativeKextGlue.cpp'), str(ROOT / 'overlay/kext/DroidVMDataStore.c'),
                 str(ROOT / 'overlay/kext/NativeRamBlockPartition.cpp'),
-                '-I', str(SOURCE), '-I', str(ROOT / 'out/x12377/storage-abi/include'), '-I', str(ROOT / 'out/x12377/xnu-m/osfmk'),
+                '-I', str(SOURCE), '-I', str(abi), '-I', str(ROOT / 'out/x12377/xnu-m/osfmk'),
                 '-D', 'U:TARGET_OS_OSX', '-D', 'TARGET_OS_OSX=1', '--obj', 'k27-obj'], check=True)
