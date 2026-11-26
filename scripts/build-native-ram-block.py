@@ -105,4 +105,4 @@ subprocess.run(['python3', str(ROOT / 'scripts/build-native-kext.py'), 'NativeRa
                 str(ROOT / 'overlay/kext/NativeKextGlue.cpp'), str(ROOT / 'overlay/kext/DroidVMDataStore.c'),
                 str(ROOT / 'overlay/kext/NativeRamBlockPartition.cpp'),
                 '-I', str(SOURCE), '-I', str(ROOT / 'out/x12377/storage-abi/include'), '-I', str(ROOT / 'out/x12377/xnu-m/osfmk'),
-                '-D', 'U:TARGET_OS_OSX', '-D', 'TARGET_OS_OSX=1'], check=True)
+                '-D', 'U:TARGET_OS_OSX', '-D', 'TARGET_OS_OSX=1', '--obj', 'k27-obj'], check=True)
