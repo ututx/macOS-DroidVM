@@ -107,7 +107,6 @@
  "kexts": [
   "bash k27/build-platform-cpu.sh",
   "bash k27/build-platform-rtc.sh",
-  "python3 scripts/build-native-ram-block.py",
   "python3 scripts/build-native-kext.py ARMPlatformStandIn overlay/kext/ARMPlatformStandIn.cpp overlay/kext/NativeKextGlue.cpp --obj k27-obj",
   "python3 scripts/build-native-kext.py DroidVMAPFSVisibility overlay/kext/DroidVMAPFSVisibility.cpp overlay/kext/NativeKextGlue.cpp --obj k27-obj",
   "python3 scripts/build-native-kext.py DroidVMGicMsi overlay/kext/DroidVMGicMsi.cpp overlay/kext/NativeKextGlue.cpp --obj k27-obj",
