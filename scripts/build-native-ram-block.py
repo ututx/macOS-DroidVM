@@ -11,6 +11,7 @@ stayed in kernel memory (kalloc.type.var4.4096 held 640 MiB by the login window)
 NativeVirtioBlock): built without it, 35 slots of IOBlockStorageDevice's vtable differ and the storage stack panics.
 """
 import subprocess
+import os
 import sys
 from pathlib import Path
 
@@ -102,11 +103,28 @@ staged.write_text(text.replace(start, publish + start).replace(old, '''  retain(
   return true;
 '''))
 abi = ROOT / 'out/x12377/storage-abi/include'
-if not (abi / 'IOKit/storage/IOBlockStorageDevice.h').exists():
-    for cand in (ROOT / 'out/k27/xnu/iokit', ROOT / 'out/x12377/build/xnu/iokit', ROOT / 'out/x12377/xnu-m/iokit'):
-        if (cand / 'IOKit/storage/IOBlockStorageDevice.h').exists():
-            abi = cand
+needle = 'IOKit/storage/IOBlockStorageDevice.h'
+if not (abi / needle).exists():
+    found = None
+    for base in ('out', 'sources', 'toolchains', 'kdk'):
+        root = ROOT / base
+        if not root.is_dir():
+            continue
+        for dirpath, dirnames, filenames in os.walk(root):
+            dirnames[:] = [d for d in dirnames if d not in ('.git', '.ccache', 'obj')]
+            if dirpath.count(os.sep) - str(root).count(os.sep) > 9:
+                dirnames[:] = []
+                continue
+            if os.path.exists(os.path.join(dirpath, needle)):
+                found = dirpath
+                break
+        if found:
             break
+    if found:
+        abi = Path(found)
+        print(f'storage ABI headers: {abi}', flush=True)
+    else:
+        print('storage ABI headers not found; the kext build will report the missing include', flush=True)
 subprocess.run(['python3', str(ROOT / 'scripts/build-native-kext.py'), 'NativeRamBlock', str(staged),
                 str(ROOT / 'overlay/kext/NativeKextGlue.cpp'), str(ROOT / 'overlay/kext/DroidVMDataStore.c'),
                 str(ROOT / 'overlay/kext/NativeRamBlockPartition.cpp'),
